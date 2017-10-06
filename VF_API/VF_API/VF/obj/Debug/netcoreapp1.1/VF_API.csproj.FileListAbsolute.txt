@@ -1,15 +1,18 @@
 C:\Project\VF\VF_Backend\VF_API\VF_API\VF\bin\netcoreapp1.1\VF_API.deps.json
 C:\Project\VF\VF_Backend\VF_API\VF_API\VF\bin\netcoreapp1.1\VF_API.runtimeconfig.json
 C:\Project\VF\VF_Backend\VF_API\VF_API\VF\bin\netcoreapp1.1\VF_API.runtimeconfig.dev.json
-C:\Project\VF\VF_Backend\VF_API\VF_API\VF\obj\Debug\netcoreapp1.1\VF_API.csprojResolveAssemblyReference.cache
+C:\Project\VF\VF_Backend\VF_API\VF_API\VF\obj\Debug\netcoreapp1.1\VF_API.Resources.Account.resources
 C:\Project\VF\VF_Backend\VF_API\VF_API\VF\obj\Debug\netcoreapp1.1\VF_API.Resources.CRUDErrorMessages.resources
 C:\Project\VF\VF_Backend\VF_API\VF_API\VF\obj\Debug\netcoreapp1.1\VF_API.Resources.ErrorCodes.resources
 C:\Project\VF\VF_Backend\VF_API\VF_API\VF\obj\Debug\netcoreapp1.1\VF_API.Resources.ExternalProvider.resources
-C:\Project\VF\VF_Backend\VF_API\VF_API\VF\obj\Debug\netcoreapp1.1\VF_API.Resources.FailureReturnMessages.resources
 C:\Project\VF\VF_Backend\VF_API\VF_API\VF\obj\Debug\netcoreapp1.1\VF_API.Resources.Roles.resources
 C:\Project\VF\VF_Backend\VF_API\VF_API\VF\obj\Debug\netcoreapp1.1\VF_API.Resources.Separators.resources
+C:\Project\VF\VF_Backend\VF_API\VF_API\VF\obj\Debug\netcoreapp1.1\VF_API.Resources.ValidationModel.resources
+C:\Project\VF\VF_Backend\VF_API\VF_API\VF\obj\Debug\netcoreapp1.1\VF_API.Resources.Account.vi.resources
+C:\Project\VF\VF_Backend\VF_API\VF_API\VF\obj\Debug\netcoreapp1.1\VF_API.Resources.ValidationModel.vi.resources
 C:\Project\VF\VF_Backend\VF_API\VF_API\VF\obj\Debug\netcoreapp1.1\VF_API.csproj.GenerateResource.Cache
 C:\Project\VF\VF_Backend\VF_API\VF_API\VF\obj\Debug\netcoreapp1.1\VF_API.AssemblyInfo.cs
+C:\Project\VF\VF_Backend\VF_API\VF_API\VF\obj\Debug\netcoreapp1.1\VF_API.csprojResolveAssemblyReference.cache
 C:\Project\VF\VF_Backend\VF_API\VF_API\VF\bin\netcoreapp1.1\HtmlPages\Email.html
 C:\Project\VF\VF_Backend\VF_API\VF_API\VF\bin\netcoreapp1.1\VF_API.dll
 C:\Project\VF\VF_Backend\VF_API\VF_API\VF\bin\netcoreapp1.1\VF_API.pdb
@@ -17,5 +20,3 @@ C:\Project\VF\VF_Backend\VF_API\VF_API\VF\bin\netcoreapp1.1\vi\VF_API.resources.
 C:\Project\VF\VF_Backend\VF_API\VF_API\VF\obj\Debug\netcoreapp1.1\vi\VF_API.resources.dll
 C:\Project\VF\VF_Backend\VF_API\VF_API\VF\obj\Debug\netcoreapp1.1\VF_API.dll
 C:\Project\VF\VF_Backend\VF_API\VF_API\VF\obj\Debug\netcoreapp1.1\VF_API.pdb
-C:\Project\VF\VF_Backend\VF_API\VF_API\VF\obj\Debug\netcoreapp1.1\VF_API.Resources.ValidationModel.resources
-C:\Project\VF\VF_Backend\VF_API\VF_API\VF\obj\Debug\netcoreapp1.1\VF_API.Resources.ValidationModel.vi.resources

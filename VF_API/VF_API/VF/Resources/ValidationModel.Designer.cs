@@ -62,7 +62,7 @@ namespace VF_API {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Email not correct.
+        ///   Looks up a localized string similar to Email not correct..
         /// </summary>
         public static string InvalidEmail {
             get {
@@ -71,7 +71,25 @@ namespace VF_API {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Full name can not be empty or null.
+        ///   Looks up a localized string similar to Invalid password..
+        /// </summary>
+        public static string InvalidPassword {
+            get {
+                return ResourceManager.GetString("InvalidPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Address can not be empty or null..
+        /// </summary>
+        public static string NullEmpltyAddress {
+            get {
+                return ResourceManager.GetString("NullEmpltyAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Full name can not be empty or null..
         /// </summary>
         public static string NullEmpltyFullName {
             get {
@@ -80,7 +98,52 @@ namespace VF_API {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Email can not be empty or null.
+        ///   Looks up a localized string similar to Phone number can not be empty or null..
+        /// </summary>
+        public static string NullEmpltyPhoneNumber {
+            get {
+                return ResourceManager.GetString("NullEmpltyPhoneNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scope business can not be empty or null..
+        /// </summary>
+        public static string NullEmpltyScopeBusiness {
+            get {
+                return ResourceManager.GetString("NullEmpltyScopeBusiness", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Address name can not be empty or null..
+        /// </summary>
+        public static string NullEmptyAddress {
+            get {
+                return ResourceManager.GetString("NullEmptyAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Company description can not be empty or null..
+        /// </summary>
+        public static string NullEmptyCompanyDesciption {
+            get {
+                return ResourceManager.GetString("NullEmptyCompanyDesciption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Customer name can not be empty or null..
+        /// </summary>
+        public static string NullEmptyCustomerName {
+            get {
+                return ResourceManager.GetString("NullEmptyCustomerName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email can not be empty or null..
         /// </summary>
         public static string NullEmptyEmail {
             get {
@@ -89,7 +152,7 @@ namespace VF_API {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Password can not be empty or null.
+        ///   Looks up a localized string similar to Password can not be empty or null..
         /// </summary>
         public static string NullEmptyPassword {
             get {
@@ -98,11 +161,74 @@ namespace VF_API {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Company name can not be empty or null.
+        ///   Looks up a localized string similar to Phonenumber can not be empty or null..
+        /// </summary>
+        public static string NullEmptyPhoneNumber {
+            get {
+                return ResourceManager.GetString("NullEmptyPhoneNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Price can not be empty or null..
+        /// </summary>
+        public static string NullEmptyPrice {
+            get {
+                return ResourceManager.GetString("NullEmptyPrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Product description can not be empty or null..
+        /// </summary>
+        public static string NullEmptyProductDescription {
+            get {
+                return ResourceManager.GetString("NullEmptyProductDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expected amount of product needed can not be empty or null..
+        /// </summary>
+        public static string NullEmptyTotalProductNeeded {
+            get {
+                return ResourceManager.GetString("NullEmptyTotalProductNeeded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vision can not be empty or null..
+        /// </summary>
+        public static string NullEmptyVision {
+            get {
+                return ResourceManager.GetString("NullEmptyVision", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Website address can not be empty or null..
+        /// </summary>
+        public static string NullEmptyWebsite {
+            get {
+                return ResourceManager.GetString("NullEmptyWebsite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Company name can not be empty or null..
         /// </summary>
         public static string NullEmtpyCompanyName {
             get {
                 return ResourceManager.GetString("NullEmtpyCompanyName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Founded year can not be empty or null..
+        /// </summary>
+        public static string NullEmtpyFoundedYear {
+            get {
+                return ResourceManager.GetString("NullEmtpyFoundedYear", resourceCulture);
             }
         }
     }

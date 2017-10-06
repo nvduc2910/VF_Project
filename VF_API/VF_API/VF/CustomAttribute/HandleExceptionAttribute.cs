@@ -23,30 +23,17 @@ namespace VF_API.CustomAttribute
                 context.Result = ApiResponder.RespondFailureTo(HttpStatusCode.NotFound,
                     new[] { context.Exception.Message }, ErrorCodes.IncorrectPassword);
 
-            else if (context.Exception is CategoryIdNotExistException)
-                context.Result = ApiResponder.RespondFailureTo(HttpStatusCode.NotImplemented,
-                    new[] { context.Exception.Message }, ErrorCodes.CateogryIdNotFound);
-
-            else if (context.Exception is SkillNotExistException)
-                context.Result = ApiResponder.RespondFailureTo(HttpStatusCode.NotImplemented,
-                    new[] { context.Exception.Message }, ErrorCodes.SkillNotExists);
-            else if (context.Exception is ProductNotExistsException)
-                context.Result = ApiResponder.RespondFailureTo(HttpStatusCode.BadRequest,
-                    new[] { context.Exception.Message }, ErrorCodes.ProductNotFound);
-
             else if (context.Exception is InvalidPinCodeException)
-
                 context.Result = ApiResponder.RespondFailureTo(HttpStatusCode.BadRequest,
-                    new[] { context.Exception.Message }, ErrorCodes.InvalidCode);
+                    new[] { context.Exception.Message }, ErrorCodes.InvalidPinCode);
 
             else if (context.Exception is PinCodeExpiredException)
-
                 context.Result = ApiResponder.RespondFailureTo(HttpStatusCode.BadRequest,
-                    new[] { context.Exception.Message }, ErrorCodes.CodeExpired);
+                    new[] { context.Exception.Message }, ErrorCodes.PinCodeExpired);
 
             else
             context.Result = ApiResponder.RespondFailureTo(HttpStatusCode.InternalServerError,
-                    new[] {context.Exception.Message}, "1111");
+                    new[] {context.Exception.Message}, ErrorCodes.GeneralCode);
         }
     }
 }

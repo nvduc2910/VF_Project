@@ -8,6 +8,7 @@ namespace VF_API.Models
     public class ScopeBusiness
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string NameVI { get; set; }
+        public string NameEN { get; set; }
     }
 }

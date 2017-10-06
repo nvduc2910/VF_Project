@@ -46,7 +46,16 @@ namespace VF_API.Models
         }
 
         public virtual DbSet<ScopeBusiness> ScopeBusiness { get; set; }
+        public virtual DbSet<Profile> Profile { get; set; }
+        public virtual DbSet<ProfileScopeBusiness> ProfileScopeBusiness { get; set; }
         public virtual DbSet<Message> Message { get; set; }
         public virtual DbSet<Converstation> Converstation { get; set; }
+
+        public virtual DbSet<CompanySize> CompanySize { get; set; }
+        public virtual DbSet<CharterCapital> CharterCapital { get; set; }
+        public virtual DbSet<Revenue> Revenue { get; set; }
+
+        public virtual DbSet<ProductionCapacity> ProductionCapacity { get; set; }
+        public virtual DbSet<Market> Market { get; set; }
     }
 }

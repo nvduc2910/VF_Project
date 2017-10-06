@@ -120,8 +120,29 @@
   <data name="InvalidEmail" xml:space="preserve">
     <value>Email không hợp lệ.</value>
   </data>
+  <data name="InvalidPassword" xml:space="preserve">
+    <value>Mật khẩu không hợp lệ</value>
+  </data>
+  <data name="NullEmpltyAddress" xml:space="preserve">
+    <value>Địa chỉ không được trống.</value>
+  </data>
   <data name="NullEmpltyFullName" xml:space="preserve">
     <value>Họ tên không được trống.</value>
+  </data>
+  <data name="NullEmpltyPhoneNumber" xml:space="preserve">
+    <value>Số điện thoại không được trống.</value>
+  </data>
+  <data name="NullEmpltyScopeBusiness" xml:space="preserve">
+    <value>Ngành nghề không được trống.</value>
+  </data>
+  <data name="NullEmptyAddress" xml:space="preserve">
+    <value>Địa chỉ không được trống.</value>
+  </data>
+  <data name="NullEmptyCompanyDesciption" xml:space="preserve">
+    <value>Mô tả về công ty không được trống.</value>
+  </data>
+  <data name="NullEmptyCustomerName" xml:space="preserve">
+    <value>Tên khách hàng không được trống.</value>
   </data>
   <data name="NullEmptyEmail" xml:space="preserve">
     <value>Email không được trống.</value>
@@ -129,7 +150,28 @@
   <data name="NullEmptyPassword" xml:space="preserve">
     <value>Mật khẩu không được trống.</value>
   </data>
+  <data name="NullEmptyPhoneNumber" xml:space="preserve">
+    <value>Số điện thoại không được trống.</value>
+  </data>
+  <data name="NullEmptyPrice" xml:space="preserve">
+    <value>Giá của sản phẩm không được trống.</value>
+  </data>
+  <data name="NullEmptyProductDescription" xml:space="preserve">
+    <value>Mô tả về sản phẩm không được trống.</value>
+  </data>
+  <data name="NullEmptyTotalProductNeeded" xml:space="preserve">
+    <value>Số lượng sản phẩm dự kiến cần đặt hàng dự kiến không được trống.</value>
+  </data>
+  <data name="NullEmptyVision" xml:space="preserve">
+    <value>Mục tiêu/tầm nhìn/sư mệnh không được trống.</value>
+  </data>
+  <data name="NullEmptyWebsite" xml:space="preserve">
+    <value>Địa chỉ website không được trống.</value>
+  </data>
   <data name="NullEmtpyCompanyName" xml:space="preserve">
     <value>Tên công ty không được trống.</value>
+  </data>
+  <data name="NullEmtpyFoundedYear" xml:space="preserve">
+    <value>Năm thành lập công ty không được trống.</value>
   </data>
 </root>

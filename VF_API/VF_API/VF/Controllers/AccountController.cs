@@ -19,6 +19,8 @@ using System;
 using Microsoft.AspNetCore.Http;
 using VF_API.Models.ReturnModels;
 using Microsoft.Extensions.Localization;
+using VF_API.Enums;
+using VF_API.Models.BindingModels.AuthenticationModels;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -44,14 +46,14 @@ namespace VF_API.Controllers
         private readonly IHttpContextAccessor httpCotext;
         private readonly IEmailSender emailSender;
         private const int PinCodeExpirationTime = 24;
-        private readonly IStringLocalizer<ValidationModel> localizer;
-
+        private readonly IStringLocalizer<ValidationModel> localizerValidation;
+        private readonly IStringLocalizer<Account> localizerAccount;
 
         /// <summary>
         /// Contructor
         /// </summary>
         public AccountController(UserManager<ApplicationUser> userManager, IConfiguration configuration,
-            IFacebookProvider facebookProvider, IOptions<JwtIssuerOptions> jwtOptions, SignInManager<ApplicationUser> signInManager, IUnitOfWork unitOfWork, IHttpContextAccessor httpCotext, IGooglePlusProvider googleProvider, IEmailSender emailSender, IStringLocalizer<ValidationModel> localizer)
+            IFacebookProvider facebookProvider, IOptions<JwtIssuerOptions> jwtOptions, SignInManager<ApplicationUser> signInManager, IUnitOfWork unitOfWork, IHttpContextAccessor httpCotext, IGooglePlusProvider googleProvider, IEmailSender emailSender, IStringLocalizer<ValidationModel> localizerValidation, IStringLocalizer<Account> localizerAccount)
         {
             this.userManager = userManager;
             this.facebookProvider = facebookProvider;
@@ -61,15 +63,8 @@ namespace VF_API.Controllers
             jwtIssuerOptions = jwtOptions.Value;
             this.googleProvider = googleProvider;
             this.emailSender = emailSender;
-            this.localizer = localizer;
-        }
-
-
-
-        [HttpGet]
-        public string Test()
-        {
-            return localizer["InvalidEmail"];
+            this.localizerValidation = localizerValidation;
+            this.localizerAccount = localizerAccount;
         }
 
         /// <summary>
@@ -81,12 +76,12 @@ namespace VF_API.Controllers
             ApplicationUser user = await userManager.FindByEmailAsync(loginModel.Email);
 
             if (user == null)
-                throw new UserNotExistsException(FailureReturnMessages.UserNotFound);
+                throw new UserNotExistsException(localizerAccount["UserNotFound"]);
 
             bool result = await userManager.CheckPasswordAsync(user, loginModel.Password);
 
             if (!result)
-                throw new IncorrectPasswordException(FailureReturnMessages.IncorrectPassword);
+                throw new IncorrectPasswordException(localizerAccount["IncorrectPassword"]);
 
             user.DeviceToken = loginModel.DeviceToken;
 
@@ -97,16 +92,35 @@ namespace VF_API.Controllers
 
 
         /// <summary>
-        /// Register with server
+        /// Register personal account with server
         /// </summary>
         /// <param name="registerModel"></param>
         /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> RegisterPersonalAccount([FromBody] PersonalAccountRegisterBindModel personalModel)
         {
-            ApplicationUser user = await RegisterPersonalUser(personalModel.Email, personalModel.Password,  personalModel.FullName, personalModel.CompanyName, personalModel.DeviceToken);
+            ApplicationUser user = await RegisterPersonalUser(personalModel.Email, personalModel.Password,  personalModel.FullName, personalModel.CompanyName, personalModel.DeviceToken, UserRole.Personal);
+
             if (user == null)
-                throw new FailedRegistrationException(FailureReturnMessages.RegisterFailed);
+
+                return ApiResponder.RespondFailureTo(HttpStatusCode.Ok, localizerAccount["RegisterFail"], ErrorCodes.RegisterFailed);
+
+            return await RespondJwtTokenTo(user, false);
+        }
+
+        /// <summary>
+        /// Register factory account with server
+        /// </summary>
+        /// <param name="registerModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> RegisterFactoryAccount([FromBody] FactoryAccountRegisterBindModel factoryModel)
+        {
+            ApplicationUser user = await RegisterFactoryUser(factoryModel.Email, factoryModel.Password, factoryModel.CompanyName, factoryModel.DeviceToken, factoryModel.ScopeBusiness, UserRole.Factory, factoryModel.IsLookingCustomer, factoryModel.PhoneNumber, factoryModel.Address);
+
+            if (user == null)
+
+                return ApiResponder.RespondFailureTo(HttpStatusCode.Ok, localizerAccount["RegisterFail"], ErrorCodes.RegisterFailed);
 
             return await RespondJwtTokenTo(user, false);
         }
@@ -122,7 +136,7 @@ namespace VF_API.Controllers
             ApplicationUser currentUser = await userManager.FindByEmailAsync(email);
 
             if (currentUser == null)
-                throw new UserNotExistsException(FailureReturnMessages.UserNotFound);
+                throw new UserNotExistsException(localizerAccount["UserNotFound"]);
 
             int pinCode = new Random().Next(100000, 999999);
             currentUser.PinCode = pinCode;
@@ -155,13 +169,13 @@ namespace VF_API.Controllers
             ApplicationUser currentUser = await userManager.FindByEmailAsync(email);
 
             if (currentUser == null)
-                throw new UserNotExistsException(FailureReturnMessages.UserNotFound);
+                throw new UserNotExistsException(localizerAccount["UserNotFound"]);
 
             if (currentUser.PinCode != pinCode)
-                throw new InvalidPinCodeException(FailureReturnMessages.InvalidPinCode);
+                throw new InvalidPinCodeException(localizerAccount["InvalidPinCode"]);
 
             if (currentUser.PinCodeExpiration < DateTime.UtcNow)
-                throw new PinCodeExpiredException(FailureReturnMessages.PinCodeExpired);
+                throw new PinCodeExpiredException(localizerAccount["PinCodeExpired"]);
 
             IdentityResult deletePasswordResult = await userManager.RemovePasswordAsync(currentUser);
 
@@ -179,9 +193,45 @@ namespace VF_API.Controllers
 
         #region Mehods
         [NonAction]
-        private async Task<ApplicationUser> RegisterPersonalUser(string email, string password, string fullName, string companyName, string deviceToken)
+        private async Task<ApplicationUser> RegisterPersonalUser(string email, string password, string fullName, string companyName, string deviceToken, UserRole roleId)
         {
-            ApplicationUser user = new ApplicationUser() { Email = email, UserName = email, FullName = fullName, CompanyName = companyName, DeviceToken = deviceToken };
+            ApplicationUser user = new ApplicationUser()
+            {
+                Email = email,
+                UserName = email,
+                FullName = fullName,
+                CompanyName = companyName,
+                DeviceToken = deviceToken,
+                RoleId = roleId
+            };
+
+            IdentityResult userCreationResult = password == null
+                ? await userManager.CreateAsync(user)
+                : await userManager.CreateAsync(user, password);
+
+            if (!userCreationResult.Succeeded)
+                throw new IdentityException(userCreationResult.Errors.FirstOrDefault().Description);
+
+            return user;
+        }
+
+        [NonAction]
+        private async Task<ApplicationUser> RegisterFactoryUser(string email, string password,
+            string companyName, string deviceToken, int scopeBusinessId, 
+            UserRole roleId, bool iSLookingCustomer, string phoneNumber, string address)
+        {
+            ApplicationUser user = new ApplicationUser()
+            {
+                Email = email,
+                UserName = email,
+                ScopeBusinessId = scopeBusinessId,
+                IsLookingCustomer = iSLookingCustomer,
+                PhoneNumber = phoneNumber,
+                Address = address,
+                CompanyName = companyName,
+                DeviceToken = deviceToken,
+                RoleId = roleId
+            };
 
             IdentityResult userCreationResult = password == null
                 ? await userManager.CreateAsync(user)

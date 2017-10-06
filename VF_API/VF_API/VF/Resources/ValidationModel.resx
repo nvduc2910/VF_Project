@@ -118,18 +118,60 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="InvalidEmail" xml:space="preserve">
-    <value>Email not correct</value>
+    <value>Email not correct.</value>
+  </data>
+  <data name="InvalidPassword" xml:space="preserve">
+    <value>Invalid password.</value>
+  </data>
+  <data name="NullEmpltyAddress" xml:space="preserve">
+    <value>Address can not be empty or null.</value>
   </data>
   <data name="NullEmpltyFullName" xml:space="preserve">
-    <value>Full name can not be empty or null</value>
+    <value>Full name can not be empty or null.</value>
+  </data>
+  <data name="NullEmpltyPhoneNumber" xml:space="preserve">
+    <value>Phone number can not be empty or null.</value>
+  </data>
+  <data name="NullEmpltyScopeBusiness" xml:space="preserve">
+    <value>Scope business can not be empty or null.</value>
+  </data>
+  <data name="NullEmptyAddress" xml:space="preserve">
+    <value>Address name can not be empty or null.</value>
+  </data>
+  <data name="NullEmptyCompanyDesciption" xml:space="preserve">
+    <value>Company description can not be empty or null.</value>
+  </data>
+  <data name="NullEmptyCustomerName" xml:space="preserve">
+    <value>Customer name can not be empty or null.</value>
   </data>
   <data name="NullEmptyEmail" xml:space="preserve">
-    <value>Email can not be empty or null</value>
+    <value>Email can not be empty or null.</value>
   </data>
   <data name="NullEmptyPassword" xml:space="preserve">
-    <value>Password can not be empty or null</value>
+    <value>Password can not be empty or null.</value>
+  </data>
+  <data name="NullEmptyPhoneNumber" xml:space="preserve">
+    <value>Phonenumber can not be empty or null.</value>
+  </data>
+  <data name="NullEmptyPrice" xml:space="preserve">
+    <value>Price can not be empty or null.</value>
+  </data>
+  <data name="NullEmptyProductDescription" xml:space="preserve">
+    <value>Product description can not be empty or null.</value>
+  </data>
+  <data name="NullEmptyTotalProductNeeded" xml:space="preserve">
+    <value>Expected amount of product needed can not be empty or null.</value>
+  </data>
+  <data name="NullEmptyVision" xml:space="preserve">
+    <value>Vision can not be empty or null.</value>
+  </data>
+  <data name="NullEmptyWebsite" xml:space="preserve">
+    <value>Website address can not be empty or null.</value>
   </data>
   <data name="NullEmtpyCompanyName" xml:space="preserve">
-    <value>Company name can not be empty or null</value>
+    <value>Company name can not be empty or null.</value>
+  </data>
+  <data name="NullEmtpyFoundedYear" xml:space="preserve">
+    <value>Founded year can not be empty or null.</value>
   </data>
 </root>

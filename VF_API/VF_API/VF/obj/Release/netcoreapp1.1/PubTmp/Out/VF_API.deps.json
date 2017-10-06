@@ -48,6 +48,11 @@
         "runtime": {
           "VF_API.dll": {}
         },
+        "resources": {
+          "vi/VF_API.resources.dll": {
+            "locale": "vi"
+          }
+        },
         "compile": {
           "VF_API.dll": {}
         }

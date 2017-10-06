@@ -62,25 +62,16 @@ namespace VF_API.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 2000.
+        ///   Looks up a localized string similar to 0000.
         /// </summary>
-        public static string CateogryIdNotFound {
+        public static string GeneralCode {
             get {
-                return ResourceManager.GetString("CateogryIdNotFound", resourceCulture);
+                return ResourceManager.GetString("GeneralCode", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 1003.
-        /// </summary>
-        public static string CodeExpired {
-            get {
-                return ResourceManager.GetString("CodeExpired", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 1001.
+        ///   Looks up a localized string similar to 4004.
         /// </summary>
         public static string IncorrectPassword {
             get {
@@ -89,25 +80,25 @@ namespace VF_API.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 1002.
+        ///   Looks up a localized string similar to 4002.
         /// </summary>
-        public static string InvalidCode {
+        public static string InvalidPinCode {
             get {
-                return ResourceManager.GetString("InvalidCode", resourceCulture);
+                return ResourceManager.GetString("InvalidPinCode", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 4001.
+        ///   Looks up a localized string similar to 4003.
         /// </summary>
-        public static string ProductNotFound {
+        public static string PinCodeExpired {
             get {
-                return ResourceManager.GetString("ProductNotFound", resourceCulture);
+                return ResourceManager.GetString("PinCodeExpired", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 1002.
+        ///   Looks up a localized string similar to 4000.
         /// </summary>
         public static string RegisterFailed {
             get {
@@ -116,16 +107,7 @@ namespace VF_API.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 4000.
-        /// </summary>
-        public static string SkillNotExists {
-            get {
-                return ResourceManager.GetString("SkillNotExists", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 1003.
+        ///   Looks up a localized string similar to 4001.
         /// </summary>
         public static string UserNotFound {
             get {

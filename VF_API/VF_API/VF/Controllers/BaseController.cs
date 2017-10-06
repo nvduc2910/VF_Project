@@ -44,5 +44,12 @@ namespace VF_API.Controllers
             this.unitOfWork = unitOfWork;
             this.userManager = userManager;
         }
+
+        [NonAction]
+        public string HeaderLanguage()
+        {
+            var language = this.httpContext.HttpContext.Request?.Headers["Accept-Language"];
+            return language.ToString();
+        }
     }
 }

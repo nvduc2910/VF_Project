@@ -117,29 +117,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CateogryIdNotFound" xml:space="preserve">
-    <value>2000</value>
-  </data>
-  <data name="CodeExpired" xml:space="preserve">
-    <value>1003</value>
+  <data name="GeneralCode" xml:space="preserve">
+    <value>0000</value>
   </data>
   <data name="IncorrectPassword" xml:space="preserve">
-    <value>1001</value>
+    <value>4004</value>
   </data>
-  <data name="InvalidCode" xml:space="preserve">
-    <value>1002</value>
+  <data name="InvalidPinCode" xml:space="preserve">
+    <value>4002</value>
   </data>
-  <data name="ProductNotFound" xml:space="preserve">
-    <value>4001</value>
+  <data name="PinCodeExpired" xml:space="preserve">
+    <value>4003</value>
   </data>
   <data name="RegisterFailed" xml:space="preserve">
-    <value>1002</value>
-  </data>
-  <data name="SkillNotExists" xml:space="preserve">
     <value>4000</value>
   </data>
   <data name="UserNotFound" xml:space="preserve">
-    <value>1003</value>
+    <value>4001</value>
   </data>
   <data name="ValidationError" xml:space="preserve">
     <value>1111</value>

@@ -18,6 +18,7 @@ using System.Text;
 using System.Threading.Tasks;
 using VF_API.Models.ReturnModels;
 using System.Collections.Generic;
+using Microsoft.Extensions.Localization;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -29,9 +30,11 @@ namespace VF_API.Controllers
     [HandleException]
     public class ChatController : BaseController
     {
-        public ChatController(IUnitOfWork unitOfWork, UserManager<ApplicationUser> userManager, IHttpContextAccessor httpCotext) : base(unitOfWork, userManager, httpCotext)
-        {
+        private readonly IStringLocalizer<Account> localizerAccount;
 
+        public ChatController(IUnitOfWork unitOfWork, UserManager<ApplicationUser> userManager, IHttpContextAccessor httpCotext, IStringLocalizer<Account> localizerAccount) : base(unitOfWork, userManager, httpCotext)
+        {
+            this.localizerAccount = localizerAccount;
         }
 
         [HttpGet]
@@ -40,7 +43,7 @@ namespace VF_API.Controllers
             var user = unitOfWork.GetRepository<ApplicationUser>().Get(s => s.Id == userId).FirstOrDefault();
 
             if (user == null)
-                throw new UserNotExistsException(FailureReturnMessages.UserNotFound);
+                throw new UserNotExistsException(localizerAccount["UserNotFound"]);
 
             return ApiResponder.RespondSuccessTo(HttpStatusCode.Ok, user);
 

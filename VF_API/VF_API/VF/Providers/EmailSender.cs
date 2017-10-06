@@ -8,20 +8,23 @@ using VF_API.Options;
 using VF_API.Exceptions;
 using VF_API.Resources;
 using System;
+using Microsoft.Extensions.Localization;
 
 namespace VF_API.Providers
 {
     public class EmailSender : IEmailSender
     {
         private readonly EmailOptions emailOptions;
+        private readonly IStringLocalizer<Account> localizerAccount;
 
         /// <summary>
         /// Constructor of email sender
         /// </summary>
         /// <param name="emailOptions"></param>
-        public EmailSender(IOptions<EmailOptions> emailOptions)
+        public EmailSender(IOptions<EmailOptions> emailOptions,IStringLocalizer<Account> localizerAccount)
         {
             this.emailOptions = emailOptions.Value;
+            this.localizerAccount = localizerAccount;
         }
 
         /// <summary>
@@ -65,9 +68,9 @@ namespace VF_API.Providers
                     await client.DisconnectAsync(true);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                throw new FailedSendEmailException(FailureReturnMessages.SendPinCodeFailed);
+                throw new FailedSendEmailException(localizerAccount["SendPinCodeFailed"]);
             }
         }
     }

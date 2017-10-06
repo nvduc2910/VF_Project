@@ -62,6 +62,11 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Resources\Account.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Account.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\CRUDErrorMessages.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -76,11 +81,6 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>ExternalProvider.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Resources\FailureReturnMessages.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>FailureReturnMessages.resx</DependentUpon>
     </Compile>
     <Compile Update="Resources\Roles.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -99,6 +99,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Update="Resources\Account.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Account.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\CRUDErrorMessages.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CRUDErrorMessages.Designer.cs</LastGenOutput>
@@ -111,9 +115,8 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ExternalProvider.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\FailureReturnMessages.resx">
+    <EmbeddedResource Update="Resources\Account.vi.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>FailureReturnMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\Roles.resx">
       <Generator>ResXFileCodeGenerator</Generator>

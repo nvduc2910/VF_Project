@@ -8,7 +8,7 @@ namespace VF_API.Enums
     public enum UserRole
     {
         Factory = 1,
-        Supplier = 2,
-        Buyer = 3,
+        Business = 2,
+        Personal = 3,
     }
 }
