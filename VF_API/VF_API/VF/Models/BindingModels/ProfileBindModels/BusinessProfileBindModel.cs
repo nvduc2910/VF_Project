@@ -35,7 +35,7 @@ namespace VF_API.Models.BindingModels.ProfileBindModels
         public string Address { get; set; }
         public double Lat { get; set; }
         public double Lng { get; set; }
-        public List<int> ScopeBusinesses { get; set; }
+        public List<int> FocusIndustry { get; set; }
 
         [Required(
         AllowEmptyStrings = false,
@@ -65,9 +65,9 @@ namespace VF_API.Models.BindingModels.ProfileBindModels
 
 
         [Required(
-      AllowEmptyStrings = false,
-      ErrorMessageResourceType = typeof(ValidationModel),
-      ErrorMessageResourceName = "NullEmptyProductDescription")]
+        AllowEmptyStrings = false,
+        ErrorMessageResourceType = typeof(ValidationModel),
+        ErrorMessageResourceName = "NullEmptyProductDescription")]
         public string ProductDescription { get; set; }
 
         [Required(
@@ -86,6 +86,7 @@ namespace VF_API.Models.BindingModels.ProfileBindModels
         AllowEmptyStrings = false,
         ErrorMessageResourceType = typeof(ValidationModel),
         ErrorMessageResourceName = "NullEmptyPrice")]
-        public int Price { get; set; }
+        public int PriceId { get; set; }
+
     }
 }

@@ -19,6 +19,7 @@ namespace VF_API.Models
         public string Address { get; set; }
         public bool IsLookingCustomer { get; set; }
 
+        public bool IsCompleteProfile { get; set; }
 
         public int PinCode { get; set; }
         public DateTime? PinCodeExpiration { get; set; }

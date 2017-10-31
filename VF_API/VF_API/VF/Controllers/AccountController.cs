@@ -191,6 +191,26 @@ namespace VF_API.Controllers
         }
        
 
+        [HttpGet]
+        public IActionResult IsCompleteProfile()
+        {
+            var userId = Convert.ToInt32(userManager.GetUserId(User));
+            var applicationUser = unitOfWork.GetRepository<ApplicationUser>().Get(s => s.Id == userId).FirstOrDefault();
+
+            bool isComplete = false;
+
+            if (applicationUser.IsCompleteProfile)
+                isComplete = true;
+            
+            var obj = new
+            {
+                IsCompelete = isComplete,
+                UserType = applicationUser.RoleId,
+            };
+
+            return ApiResponder.RespondSuccessTo(HttpStatusCode.Ok, obj);
+        }
+
         #region Mehods
         [NonAction]
         private async Task<ApplicationUser> RegisterPersonalUser(string email, string password, string fullName, string companyName, string deviceToken, UserRole roleId)
@@ -255,6 +275,8 @@ namespace VF_API.Controllers
                 full_name = user.FullName,
                 user_id = user.Id,
                 first_time = isFirstTime,
+                role = user.RoleId,
+                isCompleteProfile = user.IsCompleteProfile,
             });
         }
 

@@ -15,6 +15,8 @@ namespace VF_API.Models
         public int? RevenueId { get; set; }
         public int? ProductionCapacityId { get; set; }
         public int? MarketId { get; set; }
+        public int CityId { get; set; }
+        //public int? FocusIndustryId { get; set; }
         public UserRole RoleId { get; set; }
         public string CustomerName { get; set; }
         public string CompanyName { get; set; }
@@ -33,11 +35,14 @@ namespace VF_API.Models
         public string ProductDescription { get; set; }
         public string ProductRequirement { get; set; }
         public int TotalProductNeeded { get; set; }
-        public int Price { get; set; }
+        public int PriceId { get; set; }
+
 
         public ApplicationUser ApplicationUser { get; set; }
         public CharterCapital CharterCapital { get; set; }
         public CompanySize CompanySize { get; set; }
+        public ProductPrice ProductPrice { get; set; }
+        //public FocusIndustry FocusIndustry { get; set; }
         public Revenue Revenue { get; set; }
         public ProductionCapacity ProductionCapacity { get; set; }
         public Market Market { get; set; }

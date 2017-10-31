@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <parameters>
   <parameter name="IIS Web Application Name" description="" value="vietnamfactories" tags="IisApp">
-    <parameterEntry kind="ProviderPath" scope="IisApp" match="^C:\\Project\\VF\\VF_Backend\\VF_API\\VF_API\\VF\\obj\\Release\\netcoreapp1\.1\\PubTmp\\Out\\$" />
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^/Users/apple/Documents/Freelancer\ Projects/Backend/VF_API/VF_API/VF_API/VF/obj/Release/netcoreapp1\.1/PubTmp/Out/$" />
   </parameter>
 </parameters>

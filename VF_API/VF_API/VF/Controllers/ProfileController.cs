@@ -22,6 +22,7 @@ namespace VF_API.Controllers
     [Route("api/[controller]/[action]")]
     [HandleException]
     [ValidateModel]
+
     public class ProfileController : BaseController
     {
         public ProfileController(IUnitOfWork unitOfWork, UserManager<ApplicationUser> userManager, IHttpContextAccessor httpCotext) : base(unitOfWork, userManager, httpCotext)
@@ -40,7 +41,7 @@ namespace VF_API.Controllers
 
             if (language == "vi")
             {
-                foreach(var item in scopeBusinesses)
+                foreach (var item in scopeBusinesses)
                 {
                     var scopeBusinessItemReturn = new ScopeBusinessReturnModel()
                     {
@@ -50,7 +51,7 @@ namespace VF_API.Controllers
                     scopeBusinesesReturn.Add(scopeBusinessItemReturn);
                 }
             }
-            else if(language == "en-US")
+            else if (language == "en-US")
             {
                 foreach (var item in scopeBusinesses)
                 {
@@ -91,12 +92,31 @@ namespace VF_API.Controllers
                 ProductDescription = personalModel.ProductDescription,
                 ProductRequirement = personalModel.ProductRequirement,
                 TotalProductNeeded = personalModel.TotalProductNeeded,
-                Price = personalModel.Price,
+                PriceId = personalModel.PriceId,
                 Lat = personalModel.Lat,
                 Lng = personalModel.Lng,
             };
 
-            await unitOfWork.GetRepository<Profile>().InsertAsync(personalAccount);
+            var personalProfileAdded = await unitOfWork.GetRepository<Profile>().InsertAsync(personalAccount);
+
+            foreach (var item in personalModel.FocusIndustry)
+            {
+                var profileFocusIndustry = new ProfileFocusIndustry()
+                {
+                    ProfileId = personalProfileAdded.Id,
+                    FocusIndustryId = item,
+
+                };
+                await unitOfWork.GetRepository<ProfileFocusIndustry>().InsertAsync(profileFocusIndustry);
+            }
+
+            // update user role 
+
+            var applicationUser = unitOfWork.GetRepository<ApplicationUser>().Get(s => s.Id == userId).FirstOrDefault();
+            applicationUser.RoleId = Enums.UserRole.Personal;
+            applicationUser.IsCompleteProfile = true;
+            await unitOfWork.GetRepository<ApplicationUser>().UpdateAsync(applicationUser);
+
 
             return ApiResponder.RespondSuccessTo(HttpStatusCode.Ok, personalAccount);
         }
@@ -122,28 +142,39 @@ namespace VF_API.Controllers
                         Address = businessModel.Address,
                         CompanyDesciption = businessModel.CompanyDesciption,
                         WebSite = businessModel.WebSite,
+
                         EmailContact = businessModel.EmailContact,
                         PhoneNumberContact = businessModel.PhoneNumberContact,
                         ProductDescription = businessModel.ProductDescription,
                         ProductRequirement = businessModel.ProductRequirement,
                         TotalProductNeeded = businessModel.TotalProductNeeded,
-                        Price = businessModel.Price,
+                        PriceId = businessModel.PriceId,
                         Lat = businessModel.Lat,
                         Lng = businessModel.Lng,
                     };
 
+
+
                     var businessProfileAdded = await unitOfWork.GetRepository<Profile>().InsertAsync(businessProfile);
 
-                    foreach(var item in businessModel.ScopeBusinesses)
+                    foreach (var item in businessModel.FocusIndustry)
                     {
-                        var profileScopeBuniness = new ProfileScopeBusiness()
+                        var profileFocusIndustry = new ProfileFocusIndustry()
                         {
                             ProfileId = businessProfileAdded.Id,
-                            ScopeBusinessId = item,
+                            FocusIndustryId = item,
 
                         };
-                        await unitOfWork.GetRepository<ProfileScopeBusiness>().InsertAsync(profileScopeBuniness);
+                        await unitOfWork.GetRepository<ProfileFocusIndustry>().InsertAsync(profileFocusIndustry);
                     }
+
+                    // update user role 
+
+                    var applicationUser = unitOfWork.GetRepository<ApplicationUser>().Get(s => s.Id == userId).FirstOrDefault();
+                    applicationUser.RoleId = Enums.UserRole.Business;
+                    applicationUser.IsCompleteProfile = true;
+                    await unitOfWork.GetRepository<ApplicationUser>().UpdateAsync(applicationUser);
+
                     transaction.Commit();
 
                     return ApiResponder.RespondSuccessTo(HttpStatusCode.Ok, "Updated Business Account");
@@ -152,15 +183,15 @@ namespace VF_API.Controllers
                 {
                     transaction.Rollback();
                     throw;
-                   
+
                 }
             }
-            
+
         }
 
         #endregion
 
-        #region POST/ Factory Business Profile
+        #region POST/ Factory  Profile
 
         [HttpPost]
         public async Task<IActionResult> UpdateFactoryProfile([FromBody] FactoryProfileBindModel factoryModel)
@@ -188,6 +219,7 @@ namespace VF_API.Controllers
                         ProductionCapacityId = factoryModel.ProductionCapacityId,
                         RevenueId = factoryModel.RevenueId,
                         MarketId = factoryModel.MarketId,
+                        CityId = factoryModel.CityId,
                         Lat = factoryModel.Lat,
                         Lng = factoryModel.Lng,
                     };
@@ -204,6 +236,12 @@ namespace VF_API.Controllers
                         };
                         await unitOfWork.GetRepository<ProfileScopeBusiness>().InsertAsync(profileScopeBuniness);
                     }
+
+
+                    var applicationUser = unitOfWork.GetRepository<ApplicationUser>().Get(s => s.Id == userId).FirstOrDefault();
+                    applicationUser.RoleId = Enums.UserRole.Factory;
+                    applicationUser.IsCompleteProfile = true;
+
                     transaction.Commit();
 
                     return ApiResponder.RespondSuccessTo(HttpStatusCode.Ok, "Updated Factory Profile");
@@ -216,6 +254,319 @@ namespace VF_API.Controllers
                 }
             }
 
+        }
+
+        #endregion
+
+        #region GET/ CompanySize
+
+        [HttpGet]
+        public IActionResult GetCompanySize()
+        {
+            var language = this.HeaderLanguage();
+            var companySizeReturn = new List<CompanySizeReturnModel>();
+            var companySize = unitOfWork.GetRepository<CompanySize>().Get().ToList();
+
+            if (language == "vi")
+            {
+                foreach (var item in companySize)
+                {
+                    var companySizeItemReturn = new CompanySizeReturnModel()
+                    {
+                        Id = item.Id,
+                        Name = item.NameVI,
+                    };
+                    companySizeReturn.Add(companySizeItemReturn);
+                }
+            }
+            else if (language == "en-US")
+            {
+                foreach (var item in companySize)
+                {
+                    var companySizeItemReturn = new CompanySizeReturnModel()
+                    {
+                        Id = item.Id,
+                        Name = item.NameEN,
+                    };
+                    companySizeReturn.Add(companySizeItemReturn);
+                }
+            }
+            return ApiResponder.RespondSuccessTo(HttpStatusCode.Ok, companySizeReturn);
+        }
+
+
+
+
+        #endregion
+
+        #region GET/ CharterCapital
+        [HttpGet]
+        public IActionResult GetCharterCapital()
+        {
+            var language = this.HeaderLanguage();
+            var charterCapitalReturn = new List<CharterCapitalReturnModel>();
+            var charterCapital = unitOfWork.GetRepository<CharterCapital>().Get().ToList();
+
+            if (language == "vi")
+            {
+                foreach (var item in charterCapital)
+                {
+                    var charterCapitalItemReturn = new CharterCapitalReturnModel()
+                    {
+                        Id = item.Id,
+                        Name = item.NameVI,
+                    };
+                    charterCapitalReturn.Add(charterCapitalItemReturn);
+                }
+            }
+            else if (language == "en-US")
+            {
+                foreach (var item in charterCapital)
+                {
+                    var companySizeItemReturn = new CharterCapitalReturnModel()
+                    {
+                        Id = item.Id,
+                        Name = item.NameEN,
+                    };
+                    charterCapitalReturn.Add(companySizeItemReturn);
+                }
+            }
+            return ApiResponder.RespondSuccessTo(HttpStatusCode.Ok, charterCapitalReturn);
+        }
+
+
+
+
+        #endregion
+
+        #region GET/ ProductionCapacity
+        [HttpGet]
+        public IActionResult GetProductionCapacity()
+        {
+            var language = this.HeaderLanguage();
+            var charterCapitalReturn = new List<CompanySizeReturnModel>();
+            var charterCapital = unitOfWork.GetRepository<ProductionCapacity>().Get().ToList();
+
+            if (language == "vi")
+            {
+                foreach (var item in charterCapital)
+                {
+                    var charterCapitalItemReturn = new CompanySizeReturnModel()
+                    {
+                        Id = item.Id,
+                        Name = item.NameVI,
+                    };
+                    charterCapitalReturn.Add(charterCapitalItemReturn);
+                }
+            }
+            else if (language == "en-US")
+            {
+                foreach (var item in charterCapital)
+                {
+                    var companySizeItemReturn = new CompanySizeReturnModel()
+                    {
+                        Id = item.Id,
+                        Name = item.NameEN,
+                    };
+                    charterCapitalReturn.Add(companySizeItemReturn);
+                }
+            }
+            return ApiResponder.RespondSuccessTo(HttpStatusCode.Ok, charterCapitalReturn);
+        }
+
+
+
+
+        #endregion
+
+        #region GET/ Revenue
+        [HttpGet]
+        public IActionResult GetRevenue()
+        {
+            var language = this.HeaderLanguage();
+            var charterCapitalReturn = new List<CompanySizeReturnModel>();
+            var charterCapital = unitOfWork.GetRepository<Revenue>().Get().ToList();
+
+            if (language == "vi")
+            {
+                foreach (var item in charterCapital)
+                {
+                    var charterCapitalItemReturn = new CompanySizeReturnModel()
+                    {
+                        Id = item.Id,
+                        Name = item.NameVI,
+                    };
+                    charterCapitalReturn.Add(charterCapitalItemReturn);
+                }
+            }
+            else if (language == "en-US")
+            {
+                foreach (var item in charterCapital)
+                {
+                    var companySizeItemReturn = new CompanySizeReturnModel()
+                    {
+                        Id = item.Id,
+                        Name = item.NameEN,
+                    };
+                    charterCapitalReturn.Add(companySizeItemReturn);
+                }
+            }
+            return ApiResponder.RespondSuccessTo(HttpStatusCode.Ok, charterCapitalReturn);
+        }
+
+
+
+
+        #endregion
+
+        #region GET/ Market
+        [HttpGet]
+        public IActionResult GetMarket()
+        {
+            var language = this.HeaderLanguage();
+            var charterCapitalReturn = new List<CompanySizeReturnModel>();
+            var charterCapital = unitOfWork.GetRepository<Market>().Get().ToList();
+
+            if (language == "vi")
+            {
+                foreach (var item in charterCapital)
+                {
+                    var charterCapitalItemReturn = new CompanySizeReturnModel()
+                    {
+                        Id = item.Id,
+                        Name = item.NameVI,
+                    };
+                    charterCapitalReturn.Add(charterCapitalItemReturn);
+                }
+            }
+            else if (language == "en-US")
+            {
+                foreach (var item in charterCapital)
+                {
+                    var companySizeItemReturn = new CompanySizeReturnModel()
+                    {
+                        Id = item.Id,
+                        Name = item.NameEN,
+                    };
+                    charterCapitalReturn.Add(companySizeItemReturn);
+                }
+            }
+            return ApiResponder.RespondSuccessTo(HttpStatusCode.Ok, charterCapitalReturn);
+        }
+
+
+
+
+        #endregion
+
+        #region GET/ FocusIndustry
+        [HttpGet]
+        public IActionResult GetFocusIndustry()
+        {
+            var language = this.HeaderLanguage();
+            var charterCapitalReturn = new List<CompanySizeReturnModel>();
+            var charterCapital = unitOfWork.GetRepository<FocusIndustry>().Get().ToList();
+
+            if (language == "vi")
+            {
+                foreach (var item in charterCapital)
+                {
+                    var charterCapitalItemReturn = new CompanySizeReturnModel()
+                    {
+                        Id = item.Id,
+                        Name = item.NameVI,
+                    };
+                    charterCapitalReturn.Add(charterCapitalItemReturn);
+                }
+            }
+            else if (language == "en-US")
+            {
+                foreach (var item in charterCapital)
+                {
+                    var companySizeItemReturn = new CompanySizeReturnModel()
+                    {
+                        Id = item.Id,
+                        Name = item.NameEN,
+                    };
+                    charterCapitalReturn.Add(companySizeItemReturn);
+                }
+            }
+            return ApiResponder.RespondSuccessTo(HttpStatusCode.Ok, charterCapitalReturn);
+        }
+
+
+        #endregion
+
+        #region GET/ ProductPrice
+        [HttpGet]
+        public IActionResult ProductPrice()
+        {
+            var language = this.HeaderLanguage();
+            var charterCapitalReturn = new List<CompanySizeReturnModel>();
+            var charterCapital = unitOfWork.GetRepository<ProductPrice>().Get().ToList();
+
+            if (language == "vi")
+            {
+                foreach (var item in charterCapital)
+                {
+                    var charterCapitalItemReturn = new CompanySizeReturnModel()
+                    {
+                        Id = item.Id,
+                        Name = item.NameVI,
+                    };
+                    charterCapitalReturn.Add(charterCapitalItemReturn);
+                }
+            }
+            else if (language == "en-US")
+            {
+                foreach (var item in charterCapital)
+                {
+                    var companySizeItemReturn = new CompanySizeReturnModel()
+                    {
+                        Id = item.Id,
+                        Name = item.NameEN,
+                    };
+                    charterCapitalReturn.Add(companySizeItemReturn);
+                }
+            }
+            return ApiResponder.RespondSuccessTo(HttpStatusCode.Ok, charterCapitalReturn);
+        }
+
+        #endregion
+
+        #region GET/ City
+        [HttpGet]
+        public IActionResult City()
+        {
+            var language = this.HeaderLanguage();
+            var charterCapitalReturn = new List<CompanySizeReturnModel>();
+            var charterCapital = unitOfWork.GetRepository<City>().Get().ToList();
+
+            if (language == "vi")
+            {
+                foreach (var item in charterCapital)
+                {
+                    var charterCapitalItemReturn = new CompanySizeReturnModel()
+                    {
+                        Id = item.Id,
+                        Name = item.Name,
+                    };
+                    charterCapitalReturn.Add(charterCapitalItemReturn);
+                }
+            }
+            else if (language == "en-US")
+            {
+                foreach (var item in charterCapital)
+                {
+                    var companySizeItemReturn = new CompanySizeReturnModel()
+                    {
+                        Id = item.Id,
+                        Name = item.Name,
+                    };
+                    charterCapitalReturn.Add(companySizeItemReturn);
+                }
+            }
+            return ApiResponder.RespondSuccessTo(HttpStatusCode.Ok, charterCapitalReturn);
         }
 
         #endregion

@@ -1,0 +1,30 @@
+﻿<Properties StartupConfiguration="{F0C7C302-5275-4121-AA01-11658E47C8B7}|Default">
+  <MonoDevelop.Ide.ItemProperties.VF__API PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="VF/Controllers/ProfileController.cs">
+    <Files>
+      <File FileName="VF/Models/Profile.cs" Line="40" Column="9" />
+      <File FileName="VF/Models/ProductPrice.cs" Line="8" Column="22" />
+      <File FileName="VF/Controllers/ProfileController.cs" Line="499" Column="9" />
+      <File FileName="VF/Models/BindingModels/ProfileBindModels/PersonalProfileBindModel.cs" Line="83" Column="35" />
+      <File FileName="VF/Models/BindingModels/ProfileBindModels/BusinessProfileBindModel.cs" Line="9" Column="18" />
+      <File FileName="VF/Controllers/EntryDataController.cs" Line="137" Column="2" />
+      <File FileName="VF/Controllers/AccountController.cs" Line="211" Column="1" />
+      <File FileName="VF/wwwroot/auth.js" Line="22" Column="6" />
+      <File FileName="VF/Models/BindingModels/ProfileBindModels/FactoryProfileBindModel.cs" Line="70" Column="39" />
+      <File FileName="VF/Models/Country.cs" Line="6" Column="36" />
+      <File FileName="VF/Models/City.cs" Line="8" Column="45" />
+      <File FileName="VF/Models/VfDBContext.cs" Line="65" Column="53" />
+      <File FileName="VF/Models/BindingModels/EntryDataBindModels/ScopeBusinessBindModel.cs" Line="8" Column="18" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/Users/apple/Documents/Freelancer Projects/Backend/VF_API/VF_API/VF_API/VF/Controllers/AccountController.cs" relfile="VF/Controllers/AccountController.cs" line="200" column="1" />
+      <Breakpoint file="/Users/apple/Documents/Freelancer Projects/Backend/VF_API/VF_API/VF_API/VF/Controllers/AccountController.cs" relfile="VF/Controllers/AccountController.cs" line="205" column="1" />
+      <Breakpoint file="/Users/apple/Documents/Freelancer Projects/Backend/VF_API/VF_API/VF_API/VF/Controllers/AccountController.cs" relfile="VF/Controllers/AccountController.cs" line="211" column="1" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+</Properties>

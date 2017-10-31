@@ -103,5 +103,45 @@ namespace VF_API.Controllers
             return ApiResponder.RespondSuccessTo(HttpStatusCode.Ok, "Insert OK!");
         }
 
+
+        [HttpPost]
+        public async Task<IActionResult> InsertIndustry([FromBody]List<ScopeBusinessBindModel> scopeBusiness)
+        {
+            foreach (var item in scopeBusiness)
+            {
+                var newScope = new FocusIndustry()
+                {
+                    NameVI = item.NameVI,
+                    NameEN = item.NameEN
+                };
+                await unitOfWork.GetRepository<FocusIndustry>().InsertAsync(newScope);
+            }
+            return ApiResponder.RespondSuccessTo(HttpStatusCode.Ok, "Insert OK!");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> InsertCity([FromBody]List<CityBind> scopeBusiness)
+        {
+            foreach (var item in scopeBusiness)
+            {
+                var newScope = new City()
+                {
+                    CountryId = item.CountryId,
+                    Name = item.Name,
+                };
+                await unitOfWork.GetRepository<City>().InsertAsync(newScope);
+            }
+            return ApiResponder.RespondSuccessTo(HttpStatusCode.Ok, "Insert OK!");
+        }
     }
+}
+
+
+public class CityBind
+{
+    
+    public int CountryId { get; set; }
+    public string Name { get; set; }
+
+
 }

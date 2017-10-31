@@ -50,6 +50,7 @@ namespace VF_API.Models
         public virtual DbSet<ProfileScopeBusiness> ProfileScopeBusiness { get; set; }
         public virtual DbSet<Message> Message { get; set; }
         public virtual DbSet<Converstation> Converstation { get; set; }
+        public virtual DbSet<FocusIndustry> FocusIndustry { get; set; }
 
         public virtual DbSet<CompanySize> CompanySize { get; set; }
         public virtual DbSet<CharterCapital> CharterCapital { get; set; }
@@ -57,5 +58,10 @@ namespace VF_API.Models
 
         public virtual DbSet<ProductionCapacity> ProductionCapacity { get; set; }
         public virtual DbSet<Market> Market { get; set; }
+
+        public virtual DbSet<ProfileFocusIndustry> ProfileFocusIndustry { get; set; }
+
+        public virtual DbSet<Country> Country { get; set; }
+        public virtual DbSet<City> City { get; set; }
     }
 }

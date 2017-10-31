@@ -67,6 +67,8 @@ namespace VF_API.Models.BindingModels.ProfileBindModels
         ErrorMessageResourceName = "NullEmptyPhoneNumber")]
         public string PhoneNumberContact { get; set; }
 
+        public int CityId { get; set; }
+
         [Required(
         AllowEmptyStrings = false,
         ErrorMessageResourceType = typeof(ValidationModel),

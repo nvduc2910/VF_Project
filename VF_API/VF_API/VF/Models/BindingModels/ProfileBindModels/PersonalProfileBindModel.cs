@@ -26,6 +26,8 @@ namespace VF_API.Models.BindingModels.ProfileBindModels
         public string Vision { get; set; }
 
 
+        public List<int> FocusIndustry { get; set; }
+
         [Required(
         AllowEmptyStrings = false,
         ErrorMessageResourceType = typeof(ValidationModel),
@@ -34,7 +36,7 @@ namespace VF_API.Models.BindingModels.ProfileBindModels
 
         public double Lat { get; set; }
         public double Lng { get; set; }
-        public int ScopeBusinessId { get; set; }
+        public List<int> ScopeBusinesses { get; set; }
         public string CompanyDesciption { get; set; }
 
 
@@ -60,9 +62,9 @@ namespace VF_API.Models.BindingModels.ProfileBindModels
 
 
         [Required(
-      AllowEmptyStrings = false,
-      ErrorMessageResourceType = typeof(ValidationModel),
-      ErrorMessageResourceName = "NullEmptyProductDescription")]
+        AllowEmptyStrings = false,
+        ErrorMessageResourceType = typeof(ValidationModel),
+        ErrorMessageResourceName = "NullEmptyProductDescription")]
         public string ProductDescription { get; set; }
 
         [Required(
@@ -81,6 +83,6 @@ namespace VF_API.Models.BindingModels.ProfileBindModels
         AllowEmptyStrings = false,
         ErrorMessageResourceType = typeof(ValidationModel),
         ErrorMessageResourceName = "NullEmptyPrice")]
-        public int Price { get; set; }
+        public int PriceId { get; set; }
     }
 }

@@ -144,6 +144,8 @@ namespace VF_API.Migrations
 
                     b.Property<string>("FullName");
 
+                    b.Property<bool>("IsCompleteProfile");
+
                     b.Property<bool>("IsLookingCustomer");
 
                     b.Property<bool>("LockoutEnabled");
@@ -205,6 +207,22 @@ namespace VF_API.Migrations
                     b.ToTable("CharterCapital");
                 });
 
+            modelBuilder.Entity("VF_API.Models.City", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("CountryId");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CountryId");
+
+                    b.ToTable("City");
+                });
+
             modelBuilder.Entity("VF_API.Models.CompanySize", b =>
                 {
                     b.Property<int>("Id")
@@ -243,12 +261,42 @@ namespace VF_API.Migrations
                     b.ToTable("Converstation");
                 });
 
+            modelBuilder.Entity("VF_API.Models.Country", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("NameEN");
+
+                    b.Property<string>("NameVI");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Country");
+                });
+
+            modelBuilder.Entity("VF_API.Models.FocusIndustry", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("NameEN");
+
+                    b.Property<string>("NameVI");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("FocusIndustry");
+                });
+
             modelBuilder.Entity("VF_API.Models.Market", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Name");
+                    b.Property<string>("NameEN");
+
+                    b.Property<string>("NameVI");
 
                     b.HasKey("Id");
 
@@ -291,6 +339,20 @@ namespace VF_API.Migrations
                     b.ToTable("ProductionCapacity");
                 });
 
+            modelBuilder.Entity("VF_API.Models.ProductPrice", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("NameEN");
+
+                    b.Property<string>("NameVI");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ProductPrice");
+                });
+
             modelBuilder.Entity("VF_API.Models.Profile", b =>
                 {
                     b.Property<int>("Id")
@@ -303,6 +365,8 @@ namespace VF_API.Migrations
                     b.Property<int?>("ApplicationUserId1");
 
                     b.Property<int?>("CharterCapitalId");
+
+                    b.Property<int>("CityId");
 
                     b.Property<string>("CompanyDesciption");
 
@@ -324,9 +388,11 @@ namespace VF_API.Migrations
 
                     b.Property<string>("PhoneNumberContact");
 
-                    b.Property<int>("Price");
+                    b.Property<int>("PriceId");
 
                     b.Property<string>("ProductDescription");
+
+                    b.Property<int?>("ProductPriceId");
 
                     b.Property<string>("ProductRequirement");
 
@@ -354,11 +420,31 @@ namespace VF_API.Migrations
 
                     b.HasIndex("MarketId");
 
+                    b.HasIndex("ProductPriceId");
+
                     b.HasIndex("ProductionCapacityId");
 
                     b.HasIndex("RevenueId");
 
                     b.ToTable("Profile");
+                });
+
+            modelBuilder.Entity("VF_API.Models.ProfileFocusIndustry", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("FocusIndustryId");
+
+                    b.Property<int>("ProfileId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FocusIndustryId");
+
+                    b.HasIndex("ProfileId");
+
+                    b.ToTable("ProfileFocusIndustry");
                 });
 
             modelBuilder.Entity("VF_API.Models.ProfileScopeBusiness", b =>
@@ -444,6 +530,14 @@ namespace VF_API.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("VF_API.Models.City", b =>
+                {
+                    b.HasOne("VF_API.Models.Country", "Country")
+                        .WithMany()
+                        .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("VF_API.Models.Converstation", b =>
                 {
                     b.HasOne("VF_API.Models.ApplicationUser", "Recevier")
@@ -483,6 +577,10 @@ namespace VF_API.Migrations
                         .WithMany()
                         .HasForeignKey("MarketId");
 
+                    b.HasOne("VF_API.Models.ProductPrice", "ProductPrice")
+                        .WithMany()
+                        .HasForeignKey("ProductPriceId");
+
                     b.HasOne("VF_API.Models.ProductionCapacity", "ProductionCapacity")
                         .WithMany()
                         .HasForeignKey("ProductionCapacityId");
@@ -490,6 +588,19 @@ namespace VF_API.Migrations
                     b.HasOne("VF_API.Models.Revenue", "Revenue")
                         .WithMany()
                         .HasForeignKey("RevenueId");
+                });
+
+            modelBuilder.Entity("VF_API.Models.ProfileFocusIndustry", b =>
+                {
+                    b.HasOne("VF_API.Models.FocusIndustry", "FocusIndustry")
+                        .WithMany()
+                        .HasForeignKey("FocusIndustryId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("VF_API.Models.Profile", "Profile")
+                        .WithMany()
+                        .HasForeignKey("ProfileId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("VF_API.Models.ProfileScopeBusiness", b =>
