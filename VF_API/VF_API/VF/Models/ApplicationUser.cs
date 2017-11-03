@@ -26,6 +26,6 @@ namespace VF_API.Models
         public string DeviceToken {get;set;}
 
         public virtual ICollection<Message> Messages { get; set; }
-
+        public virtual ICollection<ProfileFavorite> ProfileFavorite { get; set; }
     }
 }

@@ -8,5 +8,7 @@ namespace VF_API.Models.BindingModels.FilterBindModels
         public string Key { get; set; }
         public List<int> ScopeBusinesses { get; set; }
         public List<int> CityId { get; set; }
+        public int Page { get; set; }
+        public int PageSize { get; set; }
     }
 }

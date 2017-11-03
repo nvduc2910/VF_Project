@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using VF_API.CustomAttribute;
 using VF_API.Helpers;
 using VF_API.Infrastructures;
 using VF_API.Models;
@@ -18,6 +19,8 @@ using VF_API.Repository;
 namespace VF_API.Controllers
 {
     [Route("api/[controller]")]
+    [ValidateModel]
+    [HandleException]
     public class FilterController : BaseController
     {
         public FilterController(IUnitOfWork unitOfWork, UserManager<ApplicationUser> userManager, IHttpContextAccessor httpCotext) : base(unitOfWork, userManager, httpCotext)
@@ -26,11 +29,16 @@ namespace VF_API.Controllers
         }
 
         [HttpPost]
-        public IActionResult NormalFilter([FromBody] NormalFilterBindModel normalfileModel, int page, int pageSize)
+        public IActionResult NormalFilter([FromBody] NormalFilterBindModel normalfileModel)
         {
+            
             var factoriesReturn = new List<FactoryBriefReturnModel>();
-
+            bool isEnableFavorite = false;
             Expression<Func<Profile, bool>> filter;
+            var userId = Convert.ToInt32(userManager.GetUserId(User));
+
+            if (userId != 0)
+                isEnableFavorite = true;
 
             filter = s0 => (s0.CompanyName.ToLower().Contains(normalfileModel.Key.ToLower())
                 || s0.ProfileScopeBusiness.Any(r => normalfileModel.ScopeBusinesses.Contains(r.ScopeBusinessId))
@@ -39,9 +47,11 @@ namespace VF_API.Controllers
                 || (s0.ProfileScopeBusiness.Any(r => r.ScopeBusiness.NameVI.ToLower().Contains(normalfileModel.Key.ToLower()) || r.ScopeBusiness.NameEN.ToLower().Contains(normalfileModel.Key.ToLower()))
                     || s0.ProfileScopeBusiness.Any(r => normalfileModel.ScopeBusinesses.Contains(r.ScopeBusinessId))
                     || normalfileModel.CityId.Contains(s0.CityId));
-            
 
-            var factories = unitOfWork.GetRepository<Profile>().Get(filter, null, "ProfileScopeBusiness.ScopeBusiness").Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            var resultNumber = unitOfWork.GetContext().Profile.Where(filter).Count();
+            var profileFavorite = unitOfWork.GetRepository<ProfileFavorite>().Get(s => s.ApplicationUserId == userId).ToList();
+            var factories = unitOfWork.GetRepository<Profile>().Get(filter, null, "ProfileScopeBusiness.ScopeBusiness").Skip((normalfileModel.Page - 1) * normalfileModel.PageSize).Take(normalfileModel.PageSize).ToList();
 
             foreach (var item in factories)
             {
@@ -50,8 +60,9 @@ namespace VF_API.Controllers
                     Id = item.Id,
                     Name = item.CompanyName,
                     LocationName = item.Address,
+                    IsFavorite = profileFavorite.Any(s => s.ApplicationUserId == userId && s.ProfileId == item.Id) ? true : false,
                 };
-
+                factoryBriefReturn.ScopeBusiness = new List<string>();
                 foreach(var itemScopeBusiness in item.ProfileScopeBusiness)
                 {
                     if(HeaderLanguage() == "en-US")
@@ -63,9 +74,23 @@ namespace VF_API.Controllers
                 factoriesReturn.Add(factoryBriefReturn);
             }
 
-            return ApiResponder.RespondSuccessTo(HttpStatusCode.Ok, factoriesReturn);
+
+            var factoriesObjectReturn = new
+            {
+                ResultNumber = resultNumber,
+                Factories = factoriesReturn,
+                IsEnableFavorite = isEnableFavorite,
+            };
+
+            return ApiResponder.RespondSuccessTo(HttpStatusCode.Ok, factoriesObjectReturn);
 
         }
 
+
+        //[HttpPost]
+        //public IActionResult AdvanceFilter()
+        //{
+            
+        //}
     }
 }

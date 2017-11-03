@@ -116,7 +116,7 @@ namespace VF_API.Controllers
         [HttpPost]
         public async Task<IActionResult> RegisterFactoryAccount([FromBody] FactoryAccountRegisterBindModel factoryModel)
         {
-            ApplicationUser user = await RegisterFactoryUser(factoryModel.Email, factoryModel.Password, factoryModel.CompanyName, factoryModel.DeviceToken, factoryModel.ScopeBusiness, UserRole.Factory, factoryModel.IsLookingCustomer, factoryModel.PhoneNumber, factoryModel.Address);
+            ApplicationUser user = await RegisterFactoryUser(factoryModel.Email, factoryModel.Password, factoryModel.CompanyName, factoryModel.DeviceToken, UserRole.Factory, factoryModel.IsLookingCustomer, factoryModel.PhoneNumber, factoryModel.Address);
 
             if (user == null)
 
@@ -197,6 +197,10 @@ namespace VF_API.Controllers
             var userId = Convert.ToInt32(userManager.GetUserId(User));
             var applicationUser = unitOfWork.GetRepository<ApplicationUser>().Get(s => s.Id == userId).FirstOrDefault();
 
+            if(applicationUser ==  null)
+                
+                throw new UserNotExistsException(localizerAccount["UserNotFound"]);
+
             bool isComplete = false;
 
             if (applicationUser.IsCompleteProfile)
@@ -237,14 +241,14 @@ namespace VF_API.Controllers
 
         [NonAction]
         private async Task<ApplicationUser> RegisterFactoryUser(string email, string password,
-            string companyName, string deviceToken, int scopeBusinessId, 
+            string companyName, string deviceToken, 
             UserRole roleId, bool iSLookingCustomer, string phoneNumber, string address)
         {
             ApplicationUser user = new ApplicationUser()
             {
                 Email = email,
                 UserName = email,
-                ScopeBusinessId = scopeBusinessId,
+              
                 IsLookingCustomer = iSLookingCustomer,
                 PhoneNumber = phoneNumber,
                 Address = address,

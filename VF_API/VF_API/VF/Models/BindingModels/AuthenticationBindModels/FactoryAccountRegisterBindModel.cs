@@ -24,17 +24,13 @@ namespace VF_API.Models.BindingModels.AuthenticationModels
             ErrorMessageResourceName = "NullEmtpyCompanyName")]
         public string CompanyName { get; set; }
 
-        [Required(
-            AllowEmptyStrings = false,
-            ErrorMessageResourceType = typeof(ValidationModel),
-            ErrorMessageResourceName = "NullEmpltyScopeBusiness")]
-        public int ScopeBusiness { get; set; }
+       
 
 
         [Required(
             AllowEmptyStrings = false,
             ErrorMessageResourceType = typeof(ValidationModel),
-            ErrorMessageResourceName = "NullEmpltyScopeBusiness")]
+            ErrorMessageResourceName = "NullEmpltyAddress")]
         public string Address { get; set; }
 
 
@@ -55,5 +51,7 @@ namespace VF_API.Models.BindingModels.AuthenticationModels
             ErrorMessageResourceName = "NullEmptyPassword")]
         public string Password { get; set; }
         public string DeviceToken { get; set; }
+
+
     }
 }
